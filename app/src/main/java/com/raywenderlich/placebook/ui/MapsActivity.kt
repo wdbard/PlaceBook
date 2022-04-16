@@ -138,6 +138,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         permissions: Array<String>,
         grantResults: IntArray
     ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_LOCATION) {
             if (grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getCurrentLocation()
@@ -183,7 +184,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .icon(BitmapDescriptorFactory.defaultMarker(
                 BitmapDescriptorFactory.HUE_AZURE))
             .alpha(0.8f))
-        marker.tag = bookmark
+        if (marker != null) {
+            marker.tag = bookmark
+        }
         return marker
     }
 
